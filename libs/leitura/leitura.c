@@ -87,7 +87,7 @@ void leitura(char *diretorio_arquivo){
         }
     }
 
-    printf("===== Leitura conclui'da =====");
+    printf("===== Leitura conclui'da =====\n");
     free(VetReg);
     fclose(file);
     fclose(nota1);

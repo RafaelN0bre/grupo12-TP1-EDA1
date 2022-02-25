@@ -3,18 +3,22 @@
 #include <string.h> 
 #include <ctype.h>
 #include "vocab.h"
+// #include "../basics/basics.c"
 
-char ** vocab(char diretorio_arquivo[100]){
+conjunto vocab(char diretorio_arquivo[100]){
     FILE *file;
     // char *diretorio_arquivo;
     // diretorio_arquivo = "..\\..\\data\\tripadvisor_hotel_reviews.csv";
     
+    FILE *vocabtxt = criaArquivo("vocab.txt");
+
     char temp_palavra[100];    
-    int qtd = 1;
     // char * Vet_palavras[500000];
-    char **Vet_palavras;
-    Vet_palavras = (char**) malloc (sizeof(char[100]) * qtd);   
-    
+    conjunto conj;
+
+    int qtd = 1;
+    conj.Vet_palavras = (char**) malloc (sizeof(char[100]) * qtd);   
+    conj.qtd;
     file = fopen(diretorio_arquivo, "r");
 
     int linha = 1;
@@ -45,31 +49,31 @@ char ** vocab(char diretorio_arquivo[100]){
 
             }
         }while(ch != ' ' && ch != '\n' && ch != EOF);
-        
         if(ch == EOF){
             printf("Vocabulário completo");
         }else{
 
             if(posiCh > 3){
-                if(procuraPalavraEmVetor(temp_palavra, Vet_palavras,cont) == 0){
+                if(procuraPalavraEmVetor(temp_palavra, conj.Vet_palavras,cont) == 0){
+                    for(int j = 0;j < posiCh;j ++){
+                        escreveEmArquivo(vocabtxt, temp_palavra[j]);
+                    }
+                    escreveEmArquivo(vocabtxt, '\n');
                     // Vet_palavras[cont] = palavra[cont];
                     l = strlen(temp_palavra);
                     qtd++;
-                    Vet_palavras = realloc(Vet_palavras, qtd * sizeof(char[100]));
-                    Vet_palavras[cont] = (char *)malloc(sizeof(char)*(l+1));
-                    strcpy(Vet_palavras[cont], temp_palavra);
-                    // printf("%s\n", Vet_palavras[cont]);
+                    conj.Vet_palavras = realloc(conj.Vet_palavras, qtd * sizeof(char[100]));
+                    conj.Vet_palavras[cont] = (char *)malloc(sizeof(char)*(l+1));
+                    strcpy(conj.Vet_palavras[cont], temp_palavra);
+                    // printf("%s\n", conj.Vet_palavras[cont]);
                     cont++;
-                    // printf("%s \n", temp_palavra);
                     memset(temp_palavra,0,strlen(temp_palavra));
                 }
             }
         }
        
     }
-    
+    conj.qtd = cont;
     fclose(file);
-    return Vet_palavras;   
-
-    
+    return conj;    
 }

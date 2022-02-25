@@ -5,13 +5,17 @@
 // #include "libs/basics/basics.c"
 
 int main(){
+    
+    
 
     char str[100];
     printf("Escreva o direto'rio do arquivo a ser lido : ");
     scanf("%[^\n]s",str);
 
     leitura(str);
-    char **Vet_palavras = vocab(str);
-    printf("%s", Vet_palavras[0]);
+    conjunto vocabulario = vocab(str);
+    printf("%s", vocabulario.Vet_palavras[3]);
+    printf("%s", vocabulario.Vet_palavras[279]);
+
     return 0;
 }

@@ -30,3 +30,38 @@ int procuraPalavraEmVetor(char palavra[100], char ** Vetor, int tamanho){
     }
     return 0;
 }
+
+int procuraPalavraEmArquivo(FILE * arquivo, char palavra[100]){
+
+    char ch;
+    int posiCh = 0;
+
+    char temp_palavra[100];
+
+    while(ch != EOF){
+        
+        posiCh = 0;
+
+        do{
+            ch = fgetc(arquivo);
+            if(ch != '\"' && ch != '*' && ch != ',' && ch != '.' && ch != '\'' && ch != ' ' && ch != '\n' && !isdigit(ch) && ch != '/' && ch != '-' && ch != '_'){
+                    temp_palavra[posiCh] = ch;
+                    posiCh++;
+            } 
+        }while(ch != '\n' && ch != ' ' && ch != EOF);
+        // printf("%s \n", temp_palavra);
+        if(strcmp(palavra, temp_palavra) == 0){
+            memset(temp_palavra,0,strlen(temp_palavra));
+            return 1;
+        }
+        memset(temp_palavra,0,strlen(temp_palavra));
+        
+    }
+    fclose(arquivo);
+    return 0;
+}
+
+typedef struct{
+        char **Vet_palavras;
+        int qtd;
+}conjunto;
