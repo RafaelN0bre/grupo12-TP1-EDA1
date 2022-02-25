@@ -3,6 +3,8 @@
 #include "../basics/basics.c"
 #include "leitura.h"
 
+
+
 void leitura(char *diretorio_arquivo){
     FILE *file;
 
@@ -94,3 +96,4 @@ void leitura(char *diretorio_arquivo){
     fclose(nota4);
     fclose(nota5);
 }
+
