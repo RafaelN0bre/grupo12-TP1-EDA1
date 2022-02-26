@@ -202,3 +202,4 @@ float ** CalculoTFIDF(int maxp, float *VetTF, float *VetIDF){
 
     return VetResultado;
 }
+

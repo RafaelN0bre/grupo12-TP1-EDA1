@@ -26,9 +26,8 @@ conjunto vocab(char diretorio_arquivo[100]){
     int posiCh = 0;
     int cont = 0;
     int l = 0;
-
+    printf("Gerando Vocabulário\n");
     while(ch != EOF){
-        
         posiCh = 0;
         do{
             ch = fgetc(file);
@@ -36,23 +35,21 @@ conjunto vocab(char diretorio_arquivo[100]){
                 printf("Chegamos ao fim \n");
             }else{
 
-                if(ch != '\"' && ch != '*' && ch != ',' && ch != '.' && ch != '\'' && ch != ' ' && ch != '\n' && !isdigit(ch) && ch != '/' && ch != '-' && ch != '_' && ch != '+'){
+                if(ch != '\"' && ch != '*' && ch != ',' && ch != '.' && ch != '\'' && ch != ' ' && ch != '\n' && !isdigit(ch) && ch != '/' && ch != '-' && ch != '_' && ch != '+' && ch != '~' && ch != ':' && ch != '`'){
                     temp_palavra[posiCh] = ch;
                     posiCh++;
                 } 
                 if(ch == '\n'){
-                    if(linha % 100 == 0){
-                        printf("Linha %d \n", linha);
-                    }
-                    linha ++;
+
+                   linha ++;
                 }
 
             }
         }while(ch != ' ' && ch != '\n' && ch != EOF);
         if(ch == EOF){
-            printf("Vocabulário completo");
+            printf("Vocabula'rio completo\n");
         }else{
-
+            
             if(posiCh > 3){
                 if(procuraPalavraEmVetor(temp_palavra, conj.Vet_palavras,cont) == 0){
                     for(int j = 0;j < posiCh;j ++){
