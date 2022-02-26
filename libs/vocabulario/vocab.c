@@ -36,7 +36,7 @@ conjunto vocab(char diretorio_arquivo[100]){
                 printf("Chegamos ao fim \n");
             }else{
 
-                if(ch != '\"' && ch != '*' && ch != ',' && ch != '.' && ch != '\'' && ch != ' ' && ch != '\n' && !isdigit(ch) && ch != '/' && ch != '-' && ch != '_'){
+                if(ch != '\"' && ch != '*' && ch != ',' && ch != '.' && ch != '\'' && ch != ' ' && ch != '\n' && !isdigit(ch) && ch != '/' && ch != '-' && ch != '_' && ch != '+'){
                     temp_palavra[posiCh] = ch;
                     posiCh++;
                 } 
@@ -67,9 +67,9 @@ conjunto vocab(char diretorio_arquivo[100]){
                     strcpy(conj.Vet_palavras[cont], temp_palavra);
                     // printf("%s\n", conj.Vet_palavras[cont]);
                     cont++;
-                    memset(temp_palavra,0,strlen(temp_palavra));
                 }
             }
+            memset(temp_palavra,0,strlen(temp_palavra));
         }
        
     }

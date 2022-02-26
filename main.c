@@ -14,8 +14,8 @@ int main(){
 
     leitura(str);
     conjunto vocabulario = vocab(str);
-    printf("%s", vocabulario.Vet_palavras[3]);
-    printf("%s", vocabulario.Vet_palavras[279]);
+
+
 
     return 0;
 }
