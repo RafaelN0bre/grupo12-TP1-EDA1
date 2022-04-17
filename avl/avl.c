@@ -117,11 +117,25 @@ struct Node *minValueNode(struct Node *node) {
 // Printar a Árvore
 void printPreOrder(struct Node *root) {
   if (root != NULL) {
+    int altura_esquerda;
+    int altura_direita;
+    if(root->left->height)
+
     printf("%d ", root->key);
     printPreOrder(root->left);
     printPreOrder(root->right);
   }
 }
+
+void printInOrder(struct Node *root){
+  if(root != NULL){
+    // Primeiro a esquerda, pois armazena os numeros menores
+    printInOrder(root->left);
+    printf(" %d \n", root->key);
+    printInOrder(root->right);
+  }
+}
+
 
 int desalocar(struct Node *root){
   // Nao faz nada caso o no esteja vazio, sai da recursao
@@ -129,7 +143,7 @@ int desalocar(struct Node *root){
     return 0;
   }
 
-  // Processo recursivo para cada no filho
+  // Processo recursivo para cada filho
   desalocar(root->left);
   desalocar(root->right);
 

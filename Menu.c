@@ -40,7 +40,8 @@ int main(void){
                 estado = 0;
                 break;
             case 3:
-                printPreOrder(root);
+                // printPreOrder(root);
+                printInOrder(root);
                 estado = 0;
                 break;
             case 4:
