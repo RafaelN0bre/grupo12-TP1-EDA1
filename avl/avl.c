@@ -122,3 +122,18 @@ void printPreOrder(struct Node *root) {
     printPreOrder(root->right);
   }
 }
+
+int desalocar(struct Node *root){
+  // Nao faz nada caso o no esteja vazio, sai da recursao
+  if (root == NULL){
+    return 0;
+  }
+
+  // Processo recursivo para cada no filho
+  desalocar(root->left);
+  desalocar(root->right);
+
+  // Apos desalocar todos os filhos, liberamos o no pai
+  free(root);
+  return 0;
+}

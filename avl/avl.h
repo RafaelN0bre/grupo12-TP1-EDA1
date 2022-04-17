@@ -21,4 +21,6 @@ struct Node *minValueNode(struct Node *node);
 
 void printPreOrder(struct Node *root);
 
+int desalocar(struct Node *root);
+
 #endif

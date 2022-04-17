@@ -20,12 +20,13 @@ int readKey(FILE *file){
 struct Node *gerarAbp(int tam, FILE *file){
     int key;
     struct Node *final_root = NULL;
-    printf("gerando abp...");
+    printf("Gerando abp...");
     printf("\n");
     for (int i = 0; i< tam;i++){
         key = readKey(file);
         final_root = insertNode(final_root, key);
     }
     fclose(file);
+    printf("ABP gerada com sucesso!!\n\n");
     return final_root;
 }
