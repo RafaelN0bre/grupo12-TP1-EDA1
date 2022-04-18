@@ -11,7 +11,7 @@ struct Node {
   int height;
 };
 
-// Calculate height
+// Calcular altura
 int height(struct Node *N) {
   if (N == NULL)
     return 0;
@@ -82,8 +82,7 @@ struct Node *insertNode(struct Node *node, int key) {
 
   // Update the balance factor of each node and
   // Balance the tree
-  node->height = 1 + max(height(node->left),
-               height(node->right));
+  node->height = 1 + max(height(node->left), height(node->right));
 
   int balance = getBalance(node);
   if (balance > 1 && key < node->left->key)
@@ -131,7 +130,8 @@ void printInOrder(struct Node *root){
   if(root != NULL){
     // Primeiro a esquerda, pois armazena os numeros menores
     printInOrder(root->left);
-    printf(" %d \n", root->key);
+    printf("|\t%d\t|\t%d\t|\n", root->key, getBalance(root));
+    printf("---------------------------------\n");
     printInOrder(root->right);
   }
 }

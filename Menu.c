@@ -41,6 +41,8 @@ int main(void){
                 break;
             case 3:
                 // printPreOrder(root);
+                printf("|\tChave\t|\tFatBal\t|\n");
+                printf("---------------------------------\n");
                 printInOrder(root);
                 estado = 0;
                 break;

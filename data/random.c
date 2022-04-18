@@ -11,7 +11,7 @@ int main(){
     FILE *fp;
     fp = fopen("data.csv", "w"); 
       
-    int max = 10000;
+    int max = 40000;
   	int min = 1;
     int n;
     char text[4];
