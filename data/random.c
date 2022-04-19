@@ -11,17 +11,17 @@ int main(){
     FILE *fp;
     fp = fopen("data.csv", "w"); 
       
-    int max = 40000;
+    int max = 400000;
   	int min = 1;
     int n;
-    char text[4];
-  	for (int i = 0; i < 100; i++){
-        n = rand() % (max - min + 1) + min;
+    char text[6];
+  	for (int i = 0; i < 1000; i++){
+        n = rand() % ((max - min + 1) + min);
         sprintf(text, "%d", n);
         for (int i = 0; i< strlen(text); i++){
             fputc(text[i], fp);
         }
-        if(i != 99){
+        if(i != 999){
             fputc('\n', fp);
         }
 

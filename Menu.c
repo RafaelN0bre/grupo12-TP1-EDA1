@@ -32,11 +32,12 @@ int main(void){
             switch (op)
             {
             case 1:
-                root = gerarAbp(100, file);
+                root = gerarAbp(1000, file);
                 estado = 0;
                 break;
             case 2:
-                /* code */
+                calculaFatBal(root);
+                printf("Fator de balanceamento calculado !!");
                 estado = 0;
                 break;
             case 3:

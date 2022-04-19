@@ -9,6 +9,7 @@ struct Node {
   struct Node *left;
   struct Node *right;
   int height;
+  int FatBal;
 };
 
 // Calcular altura
@@ -16,6 +17,12 @@ int height(struct Node *N) {
   if (N == NULL)
     return 0;
   return N->height;
+}
+
+int FatBal(struct Node *N){
+  if(N == NULL)
+    return 0;
+  return N->FatBal;
 }
 
 int max(int a, int b) {
@@ -28,6 +35,7 @@ struct Node *newNode(int key) {
   node->key = key;
   node->left = NULL;
   node->right = NULL;
+  node->FatBal = NULL;
   node->height = 1;
   return (node);
 }
@@ -84,22 +92,22 @@ struct Node *insertNode(struct Node *node, int key) {
   // Balance the tree
   node->height = 1 + max(height(node->left), height(node->right));
 
-  int balance = getBalance(node);
-  if (balance > 1 && key < node->left->key)
-    return rightRotate(node);
+  // int balance = getBalance(node);
+  // if (balance > 1 && key < node->left->key)
+  //   return rightRotate(node);
 
-  if (balance < -1 && key > node->right->key)
-    return leftRotate(node);
+  // if (balance < -1 && key > node->right->key)
+  //   return leftRotate(node);
 
-  if (balance > 1 && key > node->left->key) {
-    node->left = leftRotate(node->left);
-    return rightRotate(node);
-  }
+  // if (balance > 1 && key > node->left->key) {
+  //   node->left = leftRotate(node->left);
+  //   return rightRotate(node);
+  // }
 
-  if (balance < -1 && key < node->right->key) {
-    node->right = rightRotate(node->right);
-    return leftRotate(node);
-  }
+  // if (balance < -1 && key < node->right->key) {
+  //   node->right = rightRotate(node->right);
+  //   return leftRotate(node);
+  // }
 
   return node;
 }
@@ -130,12 +138,20 @@ void printInOrder(struct Node *root){
   if(root != NULL){
     // Primeiro a esquerda, pois armazena os numeros menores
     printInOrder(root->left);
-    printf("|\t%d\t|\t%d\t|\n", root->key, getBalance(root));
+    printf("|\t%d\t|\t%d\t|\n", root->key, root->FatBal);
     printf("---------------------------------\n");
     printInOrder(root->right);
   }
 }
 
+void calculaFatBal(struct Node *root){
+  if(root != NULL){
+    calculaFatBal(root->left);
+    calculaFatBal(root->right);
+
+    root->FatBal = getBalance(root);
+  }
+}
 
 int desalocar(struct Node *root){
   // Nao faz nada caso o no esteja vazio, sai da recursao
@@ -151,3 +167,4 @@ int desalocar(struct Node *root){
   free(root);
   return 0;
 }
+
