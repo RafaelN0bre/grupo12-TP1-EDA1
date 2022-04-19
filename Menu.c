@@ -41,11 +41,16 @@ int main(void){
                 break;
             case 3:
                 // printPreOrder(root);
-                printf("|\tChave\t|\tFatBal\t|\n");
-                printf("---------------------------------\n");
-                printInOrder(root);
-                estado = 0;
-                break;
+                if(root->left != NULL || root->right != NULL){
+                    printf("|\tChave\t|\tFatBal\t|\n");
+                    printf("---------------------------------\n");
+                    printInOrder(root);
+                    estado = 0;
+                    break;
+                }else{
+                    printf("A arvore esta  vazia !! Gere a ABP antes . . .\n\n");
+                    break;
+                }
             case 4:
                 estado = 1;
                 desalocar(root);
