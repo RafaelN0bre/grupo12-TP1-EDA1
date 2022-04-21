@@ -11,12 +11,13 @@ int main(void){
     int estado = 0;
     while(estado == 0){
         int op;
+        int balanceamentoFoiCalculado;
 
         // Criando ponteiro para file que lera os dados
         FILE *file;        
         file = fopen("data/data.csv", "r");
         
-        struct Node *root;
+        struct No *root;
 
         printf("Escolha uma das opcoes: \n\n");
         printf("1 - Gerar ABP\n");
@@ -27,6 +28,7 @@ int main(void){
         printf("\n");
         if(op != 1 && op != 2 && op != 3 && op != 4){
             printf("opcao invalida\n\n");
+            fflush(stdin);
             estado = 0;
         }else{
             switch (op)
@@ -37,19 +39,23 @@ int main(void){
                 break;
             case 2:
                 calculaFatBal(root);
-                printf("Fator de balanceamento calculado !!");
+                printf("Fator de balanceamento calculado !!\n\n");
                 estado = 0;
+                balanceamentoFoiCalculado = 1;
                 break;
             case 3:
                 // printPreOrder(root);
-                if(root->left != NULL || root->right != NULL){
+                if((root->pEsq != NULL || root->pDir != NULL) && balanceamentoFoiCalculado == 1){
                     printf("|\tChave\t|\tFatBal\t|\n");
                     printf("---------------------------------\n");
-                    printInOrder(root);
+                    imprimirOrdemCresc(root);
                     estado = 0;
                     break;
                 }else{
-                    printf("A arvore esta  vazia !! Gere a ABP antes . . .\n\n");
+                    if(balanceamentoFoiCalculado != 1)
+                        printf("Calcule o fator de balanceamento antes de imprimir a arvore !!!\n\n");
+                    else
+                        printf("A arvore esta  vazia !! Gere a ABP antes . . .\n\n");
                     break;
                 }
             case 4:
@@ -57,16 +63,11 @@ int main(void){
                 desalocar(root);
                 printf("Arvore desalocada !! Encerrando sistema . . .");
                 fclose(file);
-                free(root);
                 break;
             
             default:
                 break;
             }
         }
-    }
-
-
-    
-    
+    }    
 }

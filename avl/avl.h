@@ -1,26 +1,20 @@
 #ifndef AVL_H  
 #define AVL_H
 
-struct Node;
+struct No;
 
-int height(struct Node *N);
+int altura(struct No *N);
 
 int max(int a, int b);
 
-struct Node *newNode(int key);
+struct No *novoNo(int key);
 
-struct Node *rightRotate(struct Node *y);
+int pegarFatBal(struct No *N);
 
-struct Node *leftRotate(struct Node *x);
+struct No *inserirNo(struct No *node, int key);
 
-int getBalance(struct Node *N);
+void imprimirOrdemCresc(struct No *root);
 
-struct Node *insertNode(struct Node *node, int key);
-
-struct Node *minValueNode(struct Node *node);
-
-void printPreOrder(struct Node *root);
-
-int desalocar(struct Node *root);
+int desalocar(struct No *root);
 
 #endif

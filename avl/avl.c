@@ -4,22 +4,92 @@
 #include <stdlib.h>
 
 // Estrutura de um nó
-struct Node {
-  int key;
-  struct Node *left;
-  struct Node *right;
-  int height;
+struct No {
+  int chave;
+  struct No *pEsq;
+  struct No *pDir;
+  int altura;
   int FatBal;
 };
 
-// Calcular altura
-int height(struct Node *N) {
-  if (N == NULL)
-    return 0;
-  return N->height;
+// Criar um nó
+struct No *novoNo(int chave) {
+  struct No *no = (struct No *) malloc(sizeof(struct No));
+  no->chave = chave;
+  no->pEsq = NULL;
+  no->pDir = NULL;
+  no->FatBal = NULL;
+  no->altura = 1;
+  return (no);
 }
 
-int FatBal(struct Node *N){
+// Pegar fator de balanceamento
+int pegarFatBal(struct No *N) {
+  if (N == NULL)
+    return 0;
+  return altura(N->pEsq) - altura(N->pDir);
+}
+
+// Inserir Nó
+struct No *inserirNo(struct No *no, int chave) {
+
+  if (no == NULL)
+    return (novoNo(chave));
+
+  if (chave < no->chave)
+    no->pEsq = inserirNo(no->pEsq, chave);
+  else if (chave > no->chave)
+    no->pDir = inserirNo(no->pDir, chave);
+  else
+    return no;
+
+  // Atualiza a altura do nó
+  no->altura = 1 + max(altura(no->pEsq), altura(no->pDir));
+
+  return no;
+}
+
+void imprimirOrdemCresc(struct No *root){
+  if(root != NULL){
+    // Primeiro a esquerda, pois armazena os numeros menores
+    imprimirOrdemCresc(root->pEsq);
+    printf("|\t%d\t|\t%d\t|\n", root->chave, root->FatBal);
+    printf("---------------------------------\n");
+    imprimirOrdemCresc(root->pDir);
+  }
+}
+
+void calculaFatBal(struct No *root){
+  if(root != NULL){
+    calculaFatBal(root->pEsq);
+    calculaFatBal(root->pDir);
+
+    root->FatBal = pegarFatBal(root);
+  }
+}
+
+int desalocar(struct No *root){
+  // Nao faz nada caso o no esteja vazio, sai da recursao
+  if (root == NULL){
+    return 0;
+  }
+
+  // Processo recursivo para cada filho
+  desalocar(root->pEsq);
+  desalocar(root->pDir);
+
+  // Apos desalocar todos os filhos, liberamos o no pai
+  free(root);
+  return 0;
+}
+
+int altura(struct No *N) {
+  if (N == NULL)
+    return 0;
+  return N->altura;
+}
+
+int FatBal(struct No *N){
   if(N == NULL)
     return 0;
   return N->FatBal;
@@ -28,143 +98,3 @@ int FatBal(struct Node *N){
 int max(int a, int b) {
   return (a > b) ? a : b;
 }
-
-// Criar um nó
-struct Node *newNode(int key) {
-  struct Node *node = (struct Node *) malloc(sizeof(struct Node));
-  node->key = key;
-  node->left = NULL;
-  node->right = NULL;
-  node->FatBal = NULL;
-  node->height = 1;
-  return (node);
-}
-
-// Rotação Direita
-struct Node *rightRotate(struct Node *y) {
-  struct Node *x = y->left;
-  struct Node *T2 = x->right;
-
-  x->right = y;
-  y->left = T2;
-
-  y->height = max(height(y->left), height(y->right)) + 1;
-  x->height = max(height(x->left), height(x->right)) + 1;
-
-  return x;
-}
-
-// Rotação Esquerda
-struct Node *leftRotate(struct Node *x) {
-  struct Node *y = x->right;
-  struct Node *T2 = y->left;
-
-  y->left = x;
-  x->right = T2;
-
-  x->height = max(height(x->left), height(x->right)) + 1;
-  y->height = max(height(y->left), height(y->right)) + 1;
-
-  return y;
-}
-
-// Pegar fator de balanceamento
-int getBalance(struct Node *N) {
-  if (N == NULL)
-    return 0;
-  return height(N->left) - height(N->right);
-}
-
-// Inserir Nó
-struct Node *insertNode(struct Node *node, int key) {
-  // Find the correct position to insertNode the node and insertNode it
-  if (node == NULL)
-    return (newNode(key));
-
-  if (key < node->key)
-    node->left = insertNode(node->left, key);
-  else if (key > node->key)
-    node->right = insertNode(node->right, key);
-  else
-    return node;
-
-  // Update the balance factor of each node and
-  // Balance the tree
-  node->height = 1 + max(height(node->left), height(node->right));
-
-  // int balance = getBalance(node);
-  // if (balance > 1 && key < node->left->key)
-  //   return rightRotate(node);
-
-  // if (balance < -1 && key > node->right->key)
-  //   return leftRotate(node);
-
-  // if (balance > 1 && key > node->left->key) {
-  //   node->left = leftRotate(node->left);
-  //   return rightRotate(node);
-  // }
-
-  // if (balance < -1 && key < node->right->key) {
-  //   node->right = rightRotate(node->right);
-  //   return leftRotate(node);
-  // }
-
-  return node;
-}
-
-struct Node *minValueNode(struct Node *node) {
-  struct Node *current = node;
-
-  while (current->left != NULL)
-    current = current->left;
-
-  return current;
-}
-
-// Printar a Árvore
-void printPreOrder(struct Node *root) {
-  if (root != NULL) {
-    int altura_esquerda;
-    int altura_direita;
-    if(root->left->height)
-
-    printf("%d ", root->key);
-    printPreOrder(root->left);
-    printPreOrder(root->right);
-  }
-}
-
-void printInOrder(struct Node *root){
-  if(root != NULL){
-    // Primeiro a esquerda, pois armazena os numeros menores
-    printInOrder(root->left);
-    printf("|\t%d\t|\t%d\t|\n", root->key, root->FatBal);
-    printf("---------------------------------\n");
-    printInOrder(root->right);
-  }
-}
-
-void calculaFatBal(struct Node *root){
-  if(root != NULL){
-    calculaFatBal(root->left);
-    calculaFatBal(root->right);
-
-    root->FatBal = getBalance(root);
-  }
-}
-
-int desalocar(struct Node *root){
-  // Nao faz nada caso o no esteja vazio, sai da recursao
-  if (root == NULL){
-    return 0;
-  }
-
-  // Processo recursivo para cada filho
-  desalocar(root->left);
-  desalocar(root->right);
-
-  // Apos desalocar todos os filhos, liberamos o no pai
-  free(root);
-  return 0;
-}
-

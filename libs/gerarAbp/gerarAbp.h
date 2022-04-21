@@ -4,7 +4,7 @@
 #ifndef GERARABP_H  
 #define GERARABP_H
 
-int readKey(FILE *file);
-struct Node *gerarAbp(int tam, FILE *file);
+int lerChave(FILE *file);
+struct No *gerarAbp(int tam, FILE *file);
 
 #endif

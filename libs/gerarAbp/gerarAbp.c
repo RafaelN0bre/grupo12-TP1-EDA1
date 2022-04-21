@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int readKey(FILE *file){
+int lerChave(FILE *file){
 
     char text[5];
     int counter;
@@ -13,18 +13,18 @@ int readKey(FILE *file){
         text[counter] = ch;
         counter++;
     }
-    int key = atoi(text);
-    return key;
+    int chave = atoi(text);
+    return chave;
 }
 
-struct Node *gerarAbp(int tam, FILE *file){
-    int key;
-    struct Node *final_root = NULL;
+struct No *gerarAbp(int tam, FILE *file){
+    int chave;
+    struct No *final_root = NULL;
     printf("Gerando abp...");
     printf("\n");
     for (int i = 0; i< tam;i++){
-        key = readKey(file);
-        final_root = insertNode(final_root, key);
+        chave = lerChave(file);
+        final_root = inserirNo(final_root, chave);
     }
     fclose(file);
     printf("ABP gerada com sucesso!!\n\n");

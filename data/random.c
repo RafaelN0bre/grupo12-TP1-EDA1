@@ -11,7 +11,7 @@ int main(){
     FILE *fp;
     fp = fopen("data.csv", "w"); 
       
-    int max = 400000;
+    int max = 40000;
   	int min = 1;
     int n;
     char text[6];
@@ -24,7 +24,6 @@ int main(){
         if(i != 999){
             fputc('\n', fp);
         }
-
     }
     fclose(fp);
   	return 0;
