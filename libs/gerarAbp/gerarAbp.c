@@ -20,7 +20,7 @@ int lerChave(FILE *file){
 struct No *gerarAbp(int tam, FILE *file){
     int chave;
     struct No *final_root = NULL;
-    printf("Gerando abp...");
+    printf("\nGerando abp...");
     printf("\n");
     for (int i = 0; i< tam;i++){
         chave = lerChave(file);
@@ -29,4 +29,17 @@ struct No *gerarAbp(int tam, FILE *file){
     fclose(file);
     printf("ABP gerada com sucesso!!\n\n");
     return final_root;
+}
+
+int contarLinhas(FILE *file){
+    int linhas;
+    char ch;
+    while (ch != EOF){
+        ch = fgetc(file);
+        if(ch == '\n')
+            linhas++;
+    }
+    linhas ++;
+    fclose(file);
+    return linhas;
 }

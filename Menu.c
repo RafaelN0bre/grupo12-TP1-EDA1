@@ -9,13 +9,14 @@
 
 int main(void){
     int estado = 0;
+    char str[100];
     while(estado == 0){
         int op;
         int balanceamentoFoiCalculado;
 
         // Criando ponteiro para file que lera os dados
         FILE *file;        
-        file = fopen("data/data.csv", "r");
+        
         
         struct No *root;
 
@@ -34,7 +35,15 @@ int main(void){
             switch (op)
             {
             case 1:
-                root = gerarAbp(1000, file);
+                fflush(stdin);
+                printf("Escreva o direto'rio do arquivo a ser lido : ");
+                scanf("%[^\n]s",str);
+                file = fopen(str, "r");
+                int tam = contarLinhas(file);
+                fclose(file);
+                printf("O arquivo possui %d registros !!\n", tam);
+                file = fopen(str, "r");
+                root = gerarAbp(tam, file);
                 estado = 0;
                 break;
             case 2:

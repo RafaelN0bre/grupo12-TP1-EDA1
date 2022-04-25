@@ -15,13 +15,13 @@ int main(){
   	int min = 1;
     int n;
     char text[6];
-  	for (int i = 0; i < 1000; i++){
+  	for (int i = 0; i < 300; i++){
         n = rand() % ((max - min + 1) + min);
         sprintf(text, "%d", n);
         for (int i = 0; i< strlen(text); i++){
             fputc(text[i], fp);
         }
-        if(i != 999){
+        if(i != 299){
             fputc('\n', fp);
         }
     }
